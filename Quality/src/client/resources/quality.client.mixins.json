@@ -1,0 +1,13 @@
+{
+	"required": true,
+	"package": "saurerstoff.quality.mixin.client",
+	"compatibilityLevel": "JAVA_21",
+	"client": [
+		"ItemQualityRendererMixin",
+		"HotbarQualityRendererMixin",
+		"AbstractFurnaceScreenMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

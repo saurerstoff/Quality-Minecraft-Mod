@@ -1,0 +1,8 @@
+{
+  "values": [
+    {
+      "id": "quality:quality_mining",
+      "required": false
+    }
+  ]
+}
