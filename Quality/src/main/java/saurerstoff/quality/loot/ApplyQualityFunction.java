@@ -42,6 +42,7 @@ public class ApplyQualityFunction extends LootItemConditionalFunction {
 
         if (lootContext.hasParam(LootContextParams.THIS_ENTITY)
                 && lootContext.hasParam(LootContextParams.ATTACKING_ENTITY)) {
+            //loot comes from killing an entity
 
             Entity attacker = lootContext.getParam(LootContextParams.ATTACKING_ENTITY);
             if (attacker instanceof Player) {
@@ -59,6 +60,7 @@ public class ApplyQualityFunction extends LootItemConditionalFunction {
             }
         }
 
+        //make sure that loot is obtained through a tool
         if (tool == null || tool.isEmpty()) {
             return itemStack;
         }
@@ -103,14 +105,15 @@ public class ApplyQualityFunction extends LootItemConditionalFunction {
 
     private boolean isLootValidForTool(ItemStack lootStack, ItemStack tool, LootContext lootContext) {
         if (tool.is(ItemTags.PICKAXES)) {
-            return lootStack.is(ItemTags.COAL_ORES)
-                    || lootStack.is(ItemTags.GOLD_ORES)
-                    || lootStack.is(ItemTags.IRON_ORES)
-                    || lootStack.is(ItemTags.LAPIS_ORES)
-                    || lootStack.is(ItemTags.COPPER_ORES)
-                    || lootStack.is(ItemTags.DIAMOND_ORES)
-                    || lootStack.is(ItemTags.EMERALD_ORES)
-                    || lootStack.is(ItemTags.REDSTONE_ORES)
+            return lootStack.is(Items.COAL)
+                    || lootStack.is(Items.RAW_GOLD)
+                    || lootStack.is(Items.GOLD_NUGGET)
+                    || lootStack.is(Items.RAW_IRON)
+                    || lootStack.is(Items.LAPIS_LAZULI)
+                    || lootStack.is(Items.RAW_COPPER)
+                    || lootStack.is(Items.DIAMOND)
+                    || lootStack.is(Items.EMERALD)
+                    || lootStack.is(Items.REDSTONE)
                     || lootStack.is(ItemTags.STONE_CRAFTING_MATERIALS);
         } else if (tool.is(ItemTags.AXES)) {
             return lootStack.is(ItemTags.LOGS);
@@ -122,7 +125,7 @@ public class ApplyQualityFunction extends LootItemConditionalFunction {
                     || lootStack.is(Items.FLINT)
                     || lootStack.is(Items.CLAY_BALL);
         } else if (tool.is(ItemTags.SWORDS)) {
-            return false;
+            return false; //reality check: swords should never run through this check
         } else {
             return false;
         }
