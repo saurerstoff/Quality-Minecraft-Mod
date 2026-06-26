@@ -31,21 +31,6 @@ public class QualityModifyMiningSpeed {
 			|| itemStack.is(ItemTags.SWORDS))
 		return miningSpeed;
 
-		switch (itemStack.get(ModComponents.QUALITY_COMPONENT)) {
-			case 1:
-				return miningSpeed * QualityData.UNCOMMON_MINING_SPEED_MOD;
-
-			case 2:
-				return miningSpeed * QualityData.RARE_MINING_SPEED_MOD;
-
-			case 3:
-				return miningSpeed * QualityData.EPIC_MINING_SPEED_MOD;
-
-			case 4:
-				return miningSpeed * QualityData.LEGENDARY_MINING_SPEED_MOD;
-		
-			default:
-				return miningSpeed;
-		}
+		return miningSpeed * QualityData.MINING_SPEED_BONUS[itemStack.get(ModComponents.QUALITY_COMPONENT)];
 	}
 }

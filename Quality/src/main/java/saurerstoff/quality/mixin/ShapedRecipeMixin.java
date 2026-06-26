@@ -4,8 +4,10 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.crafting.CraftingInput;
@@ -29,7 +31,8 @@ public class ShapedRecipeMixin<T extends RecipeInput> {
             .withDefaultNamespace("base_attack_damage");
 
     @Inject(method = "assemble", at = @At("RETURN"), cancellable = true)
-    private void applyQualityToOutput(CraftingInput input, HolderLookup.Provider provider, CallbackInfoReturnable<ItemStack> callbackReturn) {
+    private void applyQualityToOutput(CraftingInput input, HolderLookup.Provider provider,
+            CallbackInfoReturnable<ItemStack> callbackReturn) {
 
         ItemStack result = callbackReturn.getReturnValue();
         if (result.isEmpty()) {
@@ -44,6 +47,8 @@ public class ShapedRecipeMixin<T extends RecipeInput> {
 
             if (newResult.is(ItemTags.SWORDS)) {
                 modifySwordOutput(newResult, qualityLevel);
+            } else if (newResult.is(ItemTags.ARMOR_ENCHANTABLE)) {
+                modifyArmorOutput(newResult, qualityLevel);
             }
 
             callbackReturn.setReturnValue(newResult);
@@ -51,7 +56,7 @@ public class ShapedRecipeMixin<T extends RecipeInput> {
     }
 
     private void modifySwordOutput(ItemStack itemStack, int qualityLevel) {
-        Quality.LOGGER.info("crafting sword shaped");
+        Quality.LOGGER.info("crafting sword");
         ItemAttributeModifiers currentModifiers = itemStack.get(DataComponents.ATTRIBUTE_MODIFIERS);
         ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
 
@@ -69,5 +74,31 @@ public class ShapedRecipeMixin<T extends RecipeInput> {
         }
 
         itemStack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
+    }
+
+    private void modifyArmorOutput(ItemStack itemStack, Integer qualityLevel) {
+        Quality.LOGGER.info("crafting armor");
+        ItemAttributeModifiers currentModifiers = itemStack.get(DataComponents.ATTRIBUTE_MODIFIERS);
+        ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
+        if (itemStack.getItem() instanceof ArmorItem armor) {
+            Quality.LOGGER.info(armor.getType().getName());
+
+            for (ItemAttributeModifiers.Entry entry : currentModifiers.modifiers()) {
+                Quality.LOGGER.info(entry.attribute() + " " + entry.modifier());
+                builder.add(entry.attribute(), entry.modifier(), entry.slot());
+            }
+
+            int originalDefense = armor.getDefense();
+
+            ResourceLocation resourceLocation = ResourceLocation.withDefaultNamespace("armor." + armor.getType().getName());
+            builder.add(
+                Attributes.ARMOR, 
+                new AttributeModifier(resourceLocation, originalDefense + QualityData.ARMOR_BONUS[qualityLevel], AttributeModifier.Operation.ADD_VALUE), 
+                EquipmentSlotGroup.bySlot(armor.getEquipmentSlot())
+            );
+
+            itemStack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
+        }
+        else return;
     }
 }

@@ -3,9 +3,9 @@
 	"id": "quality",
 	"version": "${version}",
 	"name": "Quality",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "This mod adds the quality enchantment, which allows finding resources of higher quality. Use the new ingredients to craft better tools and furnaces!",
 	"authors": [
-		"Me!"
+		"Saurerstoff"
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",

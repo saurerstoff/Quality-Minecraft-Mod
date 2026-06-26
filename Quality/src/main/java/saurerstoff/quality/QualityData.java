@@ -1,28 +1,19 @@
 package saurerstoff.quality;
 
-public class QualityData {
-    // MINING SPEED MODIFIERS
-    public final static float UNCOMMON_MINING_SPEED_MOD = 1.25f; 
-    public final static float RARE_MINING_SPEED_MOD = 1.6f;
-    public final static float EPIC_MINING_SPEED_MOD = 2.2f;
-    public final static float LEGENDARY_MINING_SPEED_MOD = 3.0f;
-
-    // FURNACE SPEED MODIFIERS
-    public final static float UNCOMMON_FURNACE_COOKTIME_MOD = 0.9f; 
-    public final static float RARE_FURNACE_COOKTIME_MOD = 0.79f; 
-    public final static float EPIC_FURNACE_COOKTIME_MOD = 0.66f; 
-    public final static float LEGENDARY_FURNACE_COOKTIME_MOD = 0.5f;
-    
-    public final static float[] SWORD_DAMAGE_BONUS = {0, 0.5f, 1f, 2f, 4f};
+public class QualityData {    
+    public final static Float[] MINING_SPEED_BONUS = {1.f, 1.25f, 1.6f, 2.2f, 3.0f};
+    public final static Float[] FURNACE_COOKTIME_BONUS = {1.f, 0.9f, 0.79f, 0.66f, 0.5f};
+    public final static Float[] SWORD_DAMAGE_BONUS = {0.f, 0.5f, 1f, 2f, 4f};
+    public final static Float[] ARMOR_BONUS = {0.f, 0.5f, 1f, 1.75f, 3f};
+    public final static Integer[] FISHING_LUCK_BONUS = {0, 1, 2, 3, 5};
 }
 
 /*
 TODO:
 
-- ARMOR
-- FISHING ROD
 - LAPIS
 - COAL
+- ADVANCEMENTS
 - BRUSH
 - SPYGLASS
 - ELYTRA

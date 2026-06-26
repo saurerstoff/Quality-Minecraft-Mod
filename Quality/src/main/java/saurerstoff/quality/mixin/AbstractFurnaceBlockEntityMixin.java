@@ -87,21 +87,7 @@ abstract class AbstractFurnaceBlockEntityMixin extends BaseContainerBlockEntity 
         if (!abstractFurnaceBlockEntity.components().has(ModComponents.QUALITY_COMPONENT)) 
 		    return cookTime;
 
-		switch (abstractFurnaceBlockEntity.components().get(ModComponents.QUALITY_COMPONENT)) {
-			case 1:
-				return (int)(cookTime * QualityData.UNCOMMON_FURNACE_COOKTIME_MOD);
-
-			case 2:
-				return (int)(cookTime * QualityData.RARE_FURNACE_COOKTIME_MOD);
-
-			case 3:
-				return (int)(cookTime * QualityData.EPIC_FURNACE_COOKTIME_MOD);
-
-			case 4:
-				return (int)(cookTime * QualityData.LEGENDARY_FURNACE_COOKTIME_MOD);
-		
-			default:
-				return cookTime;
-		}
+        int quality = abstractFurnaceBlockEntity.components().get(ModComponents.QUALITY_COMPONENT);
+        return (int)(cookTime * QualityData.FURNACE_COOKTIME_BONUS[quality]);
     }
 }
