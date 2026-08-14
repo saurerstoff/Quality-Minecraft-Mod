@@ -8,7 +8,9 @@
 		"ShapelessRecipeMixin",
 		"AbstractFurnaceBlockEntityMixin",
 		"AbstractFurnaceMenuMixin",
-		"FishingRodMixin"
+		"FishingRodMixin",
+		"EnchantmentMenuMixin",
+		"EnchantmentHelperMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

@@ -9,6 +9,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 
 public class QualityTooltip {
 
@@ -71,6 +72,28 @@ public class QualityTooltip {
             QualityData.FISHING_LUCK_BONUS, 
             bonus -> {
                 return "+" + bonus + " Luck";
+            }
+        );
+
+        //lapis
+        registerQualityBuffTooltip(
+            stack -> {
+                return stack.is(Items.LAPIS_LAZULI);
+            },
+            QualityData.LAPIS_ENCHANT_BONUS,
+            bonus -> {
+                return "+" + bonus + " Enchant Power";
+            }
+        );
+
+        //furnace fuel
+        registerQualityBuffTooltip(
+            stack -> {
+                return AbstractFurnaceBlockEntity.isFuel(stack);
+            },
+            QualityData.FURNACE_FUEL_BONUS,
+            bonus -> {
+                return "+" + (int)((bonus - 1f) * 100f) + "% Burn Duration";
             }
         );
     }

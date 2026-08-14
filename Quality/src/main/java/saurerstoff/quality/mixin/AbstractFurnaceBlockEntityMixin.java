@@ -90,4 +90,13 @@ abstract class AbstractFurnaceBlockEntityMixin extends BaseContainerBlockEntity 
         int quality = abstractFurnaceBlockEntity.components().get(ModComponents.QUALITY_COMPONENT);
         return (int)(cookTime * QualityData.FURNACE_COOKTIME_BONUS[quality]);
     }
+
+    @ModifyReturnValue(
+        method = "getBurnDuration",
+        at = @At("RETURN")
+    )
+    private static int applyQualityToFuel(int burnDuration, @Local(argsOnly = true) ItemStack itemStack) {
+        int quality = QualityUtils.getResultQuality(itemStack);
+        return (int)(burnDuration * QualityData.FURNACE_FUEL_BONUS[quality]);
+    }
 }
