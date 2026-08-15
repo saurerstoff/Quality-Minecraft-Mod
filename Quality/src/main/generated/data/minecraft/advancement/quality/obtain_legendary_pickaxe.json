@@ -1,0 +1,37 @@
+{
+  "parent": "minecraft:quality/craft_quality_pickaxe",
+  "criteria": {
+    "obtain_legendary_pickaxe": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:netherite_pickaxe"
+          },
+          {
+            "predicates": {
+              "quality:has_quality": {
+                "bounds": 4
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": "Obtain a legendary netherite pickaxe",
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "minecraft:netherite_pickaxe"
+    },
+    "title": "Mining with determination"
+  },
+  "requirements": [
+    [
+      "obtain_legendary_pickaxe"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

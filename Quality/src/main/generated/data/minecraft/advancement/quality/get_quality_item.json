@@ -1,0 +1,36 @@
+{
+  "parent": "minecraft:quality/enchant_quality",
+  "criteria": {
+    "get_quality_item": {
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "quality:has_quality": {
+                "bounds": {
+                  "max": 4,
+                  "min": 1
+                }
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": "Get an item with quality",
+    "icon": {
+      "count": 1,
+      "id": "minecraft:raw_iron"
+    },
+    "title": "Make it better"
+  },
+  "requirements": [
+    [
+      "get_quality_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -10,7 +10,9 @@
 		"AbstractFurnaceMenuMixin",
 		"FishingRodMixin",
 		"EnchantmentMenuMixin",
-		"EnchantmentHelperMixin"
+		"EnchantmentHelperMixin",
+		"ResultSlotMixin",
+		"FurnaceResultSlotMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

@@ -1,0 +1,30 @@
+{
+  "parent": "minecraft:quality/craft_quality_item",
+  "criteria": {
+    "craft_quality_sword": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#minecraft:swords"
+          }
+        ],
+        "requiredQuality": 1
+      },
+      "trigger": "quality:craft_quality"
+    }
+  },
+  "display": {
+    "description": "Craft a quality sword",
+    "icon": {
+      "count": 1,
+      "id": "minecraft:iron_sword"
+    },
+    "title": "We need bigger swords"
+  },
+  "requirements": [
+    [
+      "craft_quality_sword"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -2,6 +2,9 @@ package saurerstoff.quality.docs.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.core.registries.Registries;
+import saurerstoff.quality.enchantment.QualityEnchantments;
 
 public class QualityDataGenerator implements DataGeneratorEntrypoint {
 	@Override
@@ -15,5 +18,14 @@ public class QualityDataGenerator implements DataGeneratorEntrypoint {
 
 		pack.addProvider((output, registriesFuture) ->
 			new ModEnchantmentTagGenerator(output, enchantmentGenerator.getRegistriesFuture()));
+
+		pack.addProvider(QualityAdvancementProvider::new);
 	}
+
+	@Override
+    public void buildRegistry(RegistrySetBuilder registryBuilder) {
+        // Registers the enchantment to the dynamic registry future
+        registryBuilder.add(Registries.ENCHANTMENT, QualityEnchantments::bootstrap);
+    }
+
 }

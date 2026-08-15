@@ -1,0 +1,36 @@
+{
+  "criteria": {
+    "enchant_quality": {
+      "conditions": {
+        "item": {
+          "predicates": {
+            "minecraft:enchantments": [
+              {
+                "enchantments": "quality:quality_mining",
+                "levels": {
+                  "min": 1
+                }
+              }
+            ]
+          }
+        }
+      },
+      "trigger": "minecraft:enchanted_item"
+    }
+  },
+  "display": {
+    "background": "minecraft:textures/gui/advancements/backgrounds/adventure.png",
+    "description": "Enchant a tool with Quality",
+    "icon": {
+      "count": 1,
+      "id": "minecraft:enchanted_book"
+    },
+    "title": "Quality"
+  },
+  "requirements": [
+    [
+      "enchant_quality"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

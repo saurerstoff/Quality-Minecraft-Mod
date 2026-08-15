@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:quality/craft_quality_item",
+  "criteria": {
+    "fish_with_quality_rod": {
+      "conditions": {
+        "rod": {
+          "predicates": {
+            "quality:has_quality": {
+              "bounds": {
+                "max": 4,
+                "min": 1
+              }
+            }
+          }
+        }
+      },
+      "trigger": "minecraft:fishing_rod_hooked"
+    }
+  },
+  "display": {
+    "description": "Fish using a quality fishing rod",
+    "icon": {
+      "count": 1,
+      "id": "minecraft:fishing_rod"
+    },
+    "title": "Today's fish is trout a la creme"
+  },
+  "requirements": [
+    [
+      "fish_with_quality_rod"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,30 @@
+{
+  "parent": "minecraft:quality/craft_quality_item",
+  "criteria": {
+    "craft_quality_furnace": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:furnace"
+          }
+        ],
+        "requiredQuality": 1
+      },
+      "trigger": "quality:craft_quality"
+    }
+  },
+  "display": {
+    "description": "Craft a quality furnace",
+    "icon": {
+      "count": 1,
+      "id": "minecraft:furnace"
+    },
+    "title": "Smelting with speed"
+  },
+  "requirements": [
+    [
+      "craft_quality_furnace"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

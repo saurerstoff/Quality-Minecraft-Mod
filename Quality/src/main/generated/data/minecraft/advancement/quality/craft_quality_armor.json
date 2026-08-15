@@ -1,0 +1,30 @@
+{
+  "parent": "minecraft:quality/craft_quality_item",
+  "criteria": {
+    "craft_quality_armor": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#minecraft:enchantable/armor"
+          }
+        ],
+        "requiredQuality": 1
+      },
+      "trigger": "quality:craft_quality"
+    }
+  },
+  "display": {
+    "description": "Craft a quality armor",
+    "icon": {
+      "count": 1,
+      "id": "minecraft:iron_chestplate"
+    },
+    "title": "Look at my shiny rare armor"
+  },
+  "requirements": [
+    [
+      "craft_quality_armor"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

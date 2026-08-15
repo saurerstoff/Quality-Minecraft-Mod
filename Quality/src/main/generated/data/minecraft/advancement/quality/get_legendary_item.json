@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:quality/get_quality_item",
+  "criteria": {
+    "get_legendary_item": {
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "quality:has_quality": {
+                "bounds": 4
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": "Get an item with legendary quality",
+    "icon": {
+      "count": 1,
+      "id": "minecraft:diamond"
+    },
+    "title": "My items are legendary"
+  },
+  "requirements": [
+    [
+      "get_legendary_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

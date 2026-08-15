@@ -2,6 +2,7 @@ package saurerstoff.quality;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
+import saurerstoff.quality.criterions.QualityCriterions;
 import saurerstoff.quality.loot.ApplyQualityFunction;
 import saurerstoff.quality.loot.ModLootFunctions;
 
@@ -22,7 +23,9 @@ public class Quality implements ModInitializer {
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
 		ModComponents.initialize();
+		QualityItemPredicate.initialize();
 		ModLootFunctions.initialize();
+		QualityCriterions.initialize();
 
 		applyQualityToLoot();
 

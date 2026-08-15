@@ -1,0 +1,27 @@
+{
+  "parent": "minecraft:quality/smelt_quality_item",
+  "criteria": {
+    "smelt_legendary": {
+      "conditions": {
+        "requiredFurnaceQuality": 4,
+        "requiredQuality": 4
+      },
+      "trigger": "quality:smelt_quality"
+    }
+  },
+  "display": {
+    "description": "Smelt a legendary item with a legendary furnace",
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "minecraft:charcoal"
+    },
+    "title": "Art of smelting"
+  },
+  "requirements": [
+    [
+      "smelt_legendary"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,26 @@
+{
+  "parent": "minecraft:quality/get_quality_item",
+  "criteria": {
+    "smelt_quality_item": {
+      "conditions": {
+        "requiredFurnaceQuality": 0,
+        "requiredQuality": 1
+      },
+      "trigger": "quality:smelt_quality"
+    }
+  },
+  "display": {
+    "description": "Smelt a quality item",
+    "icon": {
+      "count": 1,
+      "id": "minecraft:furnace"
+    },
+    "title": "Smelting with quality"
+  },
+  "requirements": [
+    [
+      "smelt_quality_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

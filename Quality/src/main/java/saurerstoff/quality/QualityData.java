@@ -13,7 +13,6 @@ public class QualityData {
 /*
 TODO:
 
-- ADVANCEMENTS
 - BRUSH
 - SPYGLASS
 - ELYTRA

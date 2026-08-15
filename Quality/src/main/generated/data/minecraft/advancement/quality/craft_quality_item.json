@@ -1,0 +1,25 @@
+{
+  "parent": "minecraft:quality/get_quality_item",
+  "criteria": {
+    "craft_quality_item": {
+      "conditions": {
+        "requiredQuality": 1
+      },
+      "trigger": "quality:craft_quality"
+    }
+  },
+  "display": {
+    "description": "Craft a quality item using quality ingredients",
+    "icon": {
+      "count": 1,
+      "id": "minecraft:crafting_table"
+    },
+    "title": "Crafting with quality"
+  },
+  "requirements": [
+    [
+      "craft_quality_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
