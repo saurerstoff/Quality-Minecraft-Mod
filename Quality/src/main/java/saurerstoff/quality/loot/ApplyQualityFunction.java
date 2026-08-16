@@ -114,7 +114,9 @@ public class ApplyQualityFunction extends LootItemConditionalFunction {
                     || lootStack.is(Items.DIAMOND)
                     || lootStack.is(Items.EMERALD)
                     || lootStack.is(Items.REDSTONE)
-                    || lootStack.is(ItemTags.STONE_CRAFTING_MATERIALS);
+                    || lootStack.is(ItemTags.STONE_CRAFTING_MATERIALS)
+                    || lootStack.is(Items.OBSIDIAN)
+                    || lootStack.is(Items.AMETHYST_SHARD);
         } else if (tool.is(ItemTags.AXES)) {
             return lootStack.is(ItemTags.LOGS);
         } else if (tool.is(ItemTags.SHOVELS)) {

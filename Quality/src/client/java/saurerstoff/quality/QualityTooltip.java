@@ -96,6 +96,17 @@ public class QualityTooltip {
                 return "+" + (int)((bonus - 1f) * 100f) + "% Burn Duration";
             }
         );
+
+        //spyglass
+        registerQualityBuffTooltip(
+            stack -> {
+                return stack.is(Items.SPYGLASS);
+            }, 
+            QualityData.SPYGLASS_ZOOM_BONUS, 
+            bonus -> {
+                return "+" + (int)((bonus - 1f) * 100f) + "% Zoom";
+            }
+        );
     }
 
     private static <T> void registerQualityBuffTooltip(Function<ItemStack, Boolean> isTarget, T[] bonusValues, Function<T, String> displayBonus ) {
