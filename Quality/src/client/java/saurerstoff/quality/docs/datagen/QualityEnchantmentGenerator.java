@@ -28,16 +28,17 @@ public class QualityEnchantmentGenerator extends FabricDynamicRegistryProvider {
 
     @Override
     protected void configure(Provider registries, Entries entries) {
-        
+
         Enchantment pickaxeEnchantment = Enchantment.enchantment(
-            Enchantment.definition(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ModItemTags.QUALITY_ENCHANTABLE),
-            10,
-            3,
-            Enchantment.dynamicCost(1,15),
-            Enchantment.dynamicCost(10,35),
-            4,
-            EquipmentSlotGroup.MAINHAND)
-        ).build(QualityEnchantments.QUALITY_MINING.location());
+                Enchantment.definition(
+                        registries.lookupOrThrow(Registries.ITEM).getOrThrow(ModItemTags.QUALITY_ENCHANTABLE),
+                        10,
+                        5, // max level
+                        Enchantment.dynamicCost(1, 20),
+                        Enchantment.dynamicCost(10, 40),
+                        4,
+                        EquipmentSlotGroup.MAINHAND))
+                .build(QualityEnchantments.QUALITY_MINING.location());
         entries.add(QualityEnchantments.QUALITY_MINING, pickaxeEnchantment);
     }
 

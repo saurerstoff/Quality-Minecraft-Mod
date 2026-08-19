@@ -27,17 +27,35 @@ public class QualityIconRenderer {
     private static final ResourceLocation LEGENDARY_QUALITY_ICON = 
         ResourceLocation.fromNamespaceAndPath(Quality.MOD_ID, "textures/gui/legendary.png");
 
+    private static final ResourceLocation RARE_QUALITY_BACKGROUND = 
+        ResourceLocation.fromNamespaceAndPath(Quality.MOD_ID, "textures/gui/rare_background.png");
+    private static final ResourceLocation EPIC_QUALITY_BACKGROUND = 
+        ResourceLocation.fromNamespaceAndPath(Quality.MOD_ID, "textures/gui/epic_background.png");
+    private static final ResourceLocation LEGENDARY_QUALITY_BACKGROUND = 
+        ResourceLocation.fromNamespaceAndPath(Quality.MOD_ID, "textures/gui/legendary_background.png");
+
     public static void renderQualityIconInSlot(PoseStack poseStack, Slot slot)
 	{
         ItemStack item = slot.getItem();
         if (item.isEmpty()) return;
-		render(poseStack, item.get(ModComponents.QUALITY_COMPONENT), slot.x + 12, slot.y, 4, 4);
+        int quality = item.get(ModComponents.QUALITY_COMPONENT);
+        renderBackground(poseStack, quality, slot.x, slot.y, 16, 16);
+		render(poseStack, quality, slot.x + 12, slot.y, 4, 4);
 	}
 
     public static void renderQualityIconInSlot(PoseStack poseStack, ItemStack item, int x, int y)
 	{
         if (item.isEmpty()) return;
-		render(poseStack, item.get(ModComponents.QUALITY_COMPONENT), x + 12, y, 4 , 4);
+        int quality = item.get(ModComponents.QUALITY_COMPONENT);
+        renderBackground(poseStack, quality, x, y, 16, 16);
+		render(poseStack, quality, x + 12, y, 4 , 4);
+	}
+
+    public static void renderQualityIcon(PoseStack poseStack, ItemStack item, int x, int y)
+	{
+        if (item.isEmpty()) return;
+        int quality = item.get(ModComponents.QUALITY_COMPONENT);
+		render(poseStack, quality, x + 12, y, 4 , 4);
 	}
 
     public static void renderQualityIcon(PoseStack poseStack, int quality, int x, int y, int width, int height){
@@ -46,33 +64,77 @@ public class QualityIconRenderer {
 
     private static void render(PoseStack poseStack, int quality, int x, int y, int width, int height)
 	{
-        RenderSystem.disableDepthTest();
-
-        poseStack.pushPose();
-
+        ResourceLocation texture;
         switch (quality) {
             case 0:
                 return;
             case 1:
-                RenderSystem.setShaderTexture(0, UNCOMMON_QUALITY_ICON);
+                texture = UNCOMMON_QUALITY_ICON;
                 break;
             case 2:
-                RenderSystem.setShaderTexture(0, RARE_QUALITY_ICON);
+                texture = RARE_QUALITY_ICON;
                 break;
             case 3:
-                RenderSystem.setShaderTexture(0, EPIC_QUALITY_ICON);
+                texture = EPIC_QUALITY_ICON;
                 break;
             case 4:
-                RenderSystem.setShaderTexture(0, LEGENDARY_QUALITY_ICON);
+                texture = LEGENDARY_QUALITY_ICON;
                 break;
             default:
                 return;
         }
+
+        RenderSystem.disableDepthTest();
+
+        poseStack.pushPose();
+
+        RenderSystem.setShaderTexture(0, texture);
         
         blit(poseStack, x, y, width, height, 0, 0, 8, 8, 8, 8);
+        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
+
+        poseStack.popPose();
+
+        RenderSystem.enableDepthTest();
+    }
+
+    private static void renderBackground(PoseStack poseStack, int quality, int x, int y, int width, int height){
+        ResourceLocation texture;
+        switch (quality) {
+            case 0:
+                return;
+            case 1:
+                return;
+            case 2:
+                texture = RARE_QUALITY_BACKGROUND;
+                break;
+            case 3:
+                texture = EPIC_QUALITY_BACKGROUND;
+                break;
+            case 4:
+                texture = LEGENDARY_QUALITY_BACKGROUND;
+                break;
+            default:
+                return;
+        }
+
+        //RenderSystem.disableDepthTest();
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
+
+        poseStack.pushPose();
+
+        poseStack.translate(0, 0, 0);
+        RenderSystem.setShaderTexture(0, texture);
+
+        blit(poseStack, x, y, width, height, 0, 0, 16, 16, 16, 16);
+
 		RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
 
         poseStack.popPose();
+
+        //RenderSystem.enableDepthTest();
+        RenderSystem.disableBlend();
     }
 
     private static void blit(PoseStack poseStack, int x, int y, int width, int height, float texX, float texY, int texWidth, int texHeight, int fullWidth, int fullHeight) {

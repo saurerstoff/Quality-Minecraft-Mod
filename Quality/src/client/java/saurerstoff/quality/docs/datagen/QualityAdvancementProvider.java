@@ -79,12 +79,19 @@ public class QualityAdvancementProvider extends FabricAdvancementProvider {
                 .of(ItemTags.ARMOR_ENCHANTABLE)
                 .build();
 
-        ItemPredicate isNetheritePickaxe = ItemPredicate.Builder.item()
+        ItemPredicate isLegendaryNetheritePickaxe = ItemPredicate.Builder.item()
                 .of(Items.NETHERITE_PICKAXE)
+                .withSubPredicate(
+                        QualityItemPredicate.HAS_QUALITY_PREDICATE_TYPE, 
+                        new QualityItemPredicate.HasQualityPredicate(MinMaxBounds.Ints.exactly(4)))
                 .build();
 
         ItemPredicate isFurnace = ItemPredicate.Builder.item()
                 .of(Items.FURNACE)
+                .build();
+
+        ItemPredicate isSpyglass = ItemPredicate.Builder.item()
+                .of(Items.SPYGLASS)
                 .build();
 
         AdvancementHolder enchantQuality = Advancement.Builder.advancement()
@@ -226,7 +233,7 @@ public class QualityAdvancementProvider extends FabricAdvancementProvider {
                             new InventoryChangeTrigger.TriggerInstance(
                                 Optional.empty(),
                                 InventoryChangeTrigger.TriggerInstance.Slots.ANY,
-                                List.of(isNetheritePickaxe, hasLegendaryQuality)
+                                List.of(isLegendaryNetheritePickaxe)
                             ))
                         )
                 .save(consumer, Quality.MOD_ID + "/obtain_legendary_pickaxe");
@@ -334,6 +341,26 @@ public class QualityAdvancementProvider extends FabricAdvancementProvider {
                                 ))
                         )
                 .save(consumer, Quality.MOD_ID + "/fish_with_quality_rod");
+
+        AdvancementHolder craftQualitySpyglass = Advancement.Builder.advancement()
+                .parent(craftQualityItem)
+                .display(
+                        Items.SPYGLASS,
+                        Component.literal("Zoom all the way"),
+                        Component.literal("Craft a quality spyglass"),
+                        null,
+                        AdvancementType.TASK,
+                        true,
+                        true,
+                        false)
+                .addCriterion("craft_quality_spyglass",
+                        QualityCriterions.CRAFT_QUALITY.createCriterion(
+                                new CraftQualityCriterion.Conditions(
+                                        Optional.empty(), 
+                                        1, 
+                                        List.of(isSpyglass)))
+                        )
+                .save(consumer, Quality.MOD_ID + "/craft_quality_spyglass");
 
         /*
                 TODO

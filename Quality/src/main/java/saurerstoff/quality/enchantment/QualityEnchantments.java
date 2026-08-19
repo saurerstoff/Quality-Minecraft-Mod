@@ -24,9 +24,9 @@ public class QualityEnchantments {
                 Enchantment.definition(
                         itemLookup.getOrThrow(ModItemTags.QUALITY_ENCHANTABLE),
                         10, // weight
-                        3,  // max level
-                        Enchantment.dynamicCost(1, 15),
-                        Enchantment.dynamicCost(10, 35),
+                        5,  // max level
+                        Enchantment.dynamicCost(1, 20),
+                        Enchantment.dynamicCost(10, 40),
                         4,  // anvil cost
                         EquipmentSlotGroup.MAINHAND
                 )

@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "minecraft:netherite_pickaxe"
-          },
-          {
+            "items": "minecraft:netherite_pickaxe",
             "predicates": {
               "quality:has_quality": {
                 "bounds": 4

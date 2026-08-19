@@ -1,0 +1,30 @@
+{
+  "parent": "minecraft:quality/craft_quality_item",
+  "criteria": {
+    "craft_quality_spyglass": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:spyglass"
+          }
+        ],
+        "requiredQuality": 1
+      },
+      "trigger": "quality:craft_quality"
+    }
+  },
+  "display": {
+    "description": "Craft a quality spyglass",
+    "icon": {
+      "count": 1,
+      "id": "minecraft:spyglass"
+    },
+    "title": "Zoom all the way"
+  },
+  "requirements": [
+    [
+      "craft_quality_spyglass"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

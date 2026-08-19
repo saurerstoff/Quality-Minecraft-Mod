@@ -43,7 +43,7 @@ public class ItemQualityRendererMixin extends Screen{
     )
     public void renderQualityIconOnFloatingItem(GuiGraphics graphics, ItemStack itemStack, int x, int y, String string, CallbackInfo info){
         if(!itemStack.has(ModComponents.QUALITY_COMPONENT)) return;
-        QualityIconRenderer.renderQualityIconInSlot(graphics.pose(), itemStack, x, y);
+        QualityIconRenderer.renderQualityIcon(graphics.pose(), itemStack, x, y);
         
     }
 }

@@ -2,10 +2,14 @@ package saurerstoff.quality.loot;
 
 import java.util.List;
 
+import org.joml.Vector3f;
+
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
@@ -17,7 +21,11 @@ import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunct
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.phys.Vec3;
 import saurerstoff.quality.ModComponents;
+import saurerstoff.quality.QualityData;
+import saurerstoff.quality.QualityData.QualityParticleEntry;
+import saurerstoff.quality.QualityData.QualityRollSoundData;
 import saurerstoff.quality.enchantment.QualityEnchantments;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 
@@ -42,32 +50,51 @@ public class ApplyQualityFunction extends LootItemConditionalFunction {
 
         if (lootContext.hasParam(LootContextParams.THIS_ENTITY)
                 && lootContext.hasParam(LootContextParams.ATTACKING_ENTITY)) {
-            //loot comes from killing an entity
+            // loot comes from killing an entity
 
             Entity attacker = lootContext.getParam(LootContextParams.ATTACKING_ENTITY);
             if (attacker instanceof Player) {
                 tool = lootContext.getParam(LootContextParams.DAMAGE_SOURCE).getWeaponItem();
-            }
-            else{
+            } else {
                 return itemStack;
             }
 
-        }
-        else {
+        } else {
             tool = lootContext.getParamOrNull(LootContextParams.TOOL);
             if (tool == null || !isLootValidForTool(itemStack, tool, lootContext)) {
                 return itemStack;
             }
         }
 
-        //make sure that loot is obtained through a tool
+        // make sure that loot is obtained through a tool
         if (tool == null || tool.isEmpty()) {
             return itemStack;
         }
 
         level = getQualityEnchantmentLevel(lootContext, tool);
 
-        rollAndApplyQuality(itemStack, lootContext, level);
+        int quality = rollAndApplyQuality(itemStack, lootContext, level);
+
+        // play effects
+        Vec3 position = lootContext.getParamOrNull(LootContextParams.ORIGIN);
+        BlockPos blockPos = BlockPos.containing(position);
+        if (blockPos != null && quality > 0) {
+
+            QualityRollSoundData soundData = QualityData.QUALITY_ROLL_SOUNDS[quality];
+            lootContext.getLevel().playSound(null, blockPos, soundData.soundEvent(), SoundSource.PLAYERS,
+                    soundData.volume(), soundData.pitch());
+
+            List<QualityParticleEntry> particles = QualityData.QUALITY_PARTICLES.get(quality);
+            for (QualityParticleEntry particleEntry : particles) {
+                lootContext.getLevel().sendParticles(
+                        particleEntry.particleOptions(),
+                        position.x, position.y, position.z,
+                        particleEntry.amount(),
+                        0.2, 0.2, 0.2,
+                        0.1);
+            }
+
+        }
 
         return itemStack;
     }
@@ -80,7 +107,7 @@ public class ApplyQualityFunction extends LootItemConditionalFunction {
         return level;
     }
 
-    private void rollAndApplyQuality(ItemStack itemStack, LootContext lootContext, int level) {
+    private int rollAndApplyQuality(ItemStack itemStack, LootContext lootContext, int level) {
         if (level > 0) {
             RandomSource random = lootContext.getRandom();
             int qualityLevel = 0;
@@ -99,8 +126,11 @@ public class ApplyQualityFunction extends LootItemConditionalFunction {
 
             if (qualityLevel > 0 && qualityLevel < 5) {
                 itemStack.set(ModComponents.QUALITY_COMPONENT, qualityLevel);
+                return qualityLevel;
             }
         }
+
+        return 0;
     }
 
     private boolean isLootValidForTool(ItemStack lootStack, ItemStack tool, LootContext lootContext) {
@@ -127,7 +157,7 @@ public class ApplyQualityFunction extends LootItemConditionalFunction {
                     || lootStack.is(Items.FLINT)
                     || lootStack.is(Items.CLAY_BALL);
         } else if (tool.is(ItemTags.SWORDS)) {
-            return false; //reality check: swords should never run through this check
+            return false; // reality check: swords should never run through this check
         } else {
             return false;
         }
