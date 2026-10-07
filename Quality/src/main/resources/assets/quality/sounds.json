@@ -1,0 +1,10 @@
+{
+  "recycler_loop": {
+    "subtitle": "sound.quality.recycler_loop",
+    "sounds": ["quality:recycler_loop"]
+  },
+  "recycler_finished": {
+    "subtitle": "sound.quality.recycler_finished",
+    "sounds": ["quality:recycler_finished"]
+  }
+}

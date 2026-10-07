@@ -2,6 +2,12 @@ package saurerstoff.quality;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import saurerstoff.quality.blocks.ModBlockEntities;
+import saurerstoff.quality.blocks.ModBlocks;
 import saurerstoff.quality.criterions.QualityCriterions;
 import saurerstoff.quality.loot.ApplyQualityFunction;
 import saurerstoff.quality.loot.ModLootFunctions;
@@ -22,10 +28,14 @@ public class Quality implements ModInitializer {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
+		ModSounds.initialize();
 		ModComponents.initialize();
 		QualityItemPredicate.initialize();
 		ModLootFunctions.initialize();
 		QualityCriterions.initialize();
+		ModMenuTypes.initialize();
+		ModBlocks.initialize();
+		ModBlockEntities.initialize();
 
 		applyQualityToLoot();
 

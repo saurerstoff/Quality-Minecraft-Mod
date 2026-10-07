@@ -1,6 +1,5 @@
 package saurerstoff.quality;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.joml.Vector3f;
@@ -26,6 +25,8 @@ public class QualityData {
     public final static Integer[] LAPIS_ENCHANT_BONUS = { 0, 3, 7, 15, 30 };
     public final static Float[] FURNACE_FUEL_BONUS = { 1.f, 1.25f, 1.6f, 2.2f, 3.0f };
     public final static Float[] SPYGLASS_ZOOM_BONUS = { 1.f, 1.4f, 2f, 3f, 5f };
+    public final static float RECYCLE_RETURN_BASE_CHANCE = 0.5f;
+
     public final static QualityRollSoundData[] QUALITY_ROLL_SOUNDS = {
             new QualityRollSoundData(SoundEvents.BAMBOO_WOOD_HIT, 0f, 1f),
             new QualityRollSoundData(SoundEvents.NOTE_BLOCK_BELL.value(), 0.05f, 0.5f),
@@ -57,6 +58,8 @@ public class QualityData {
 /*
  * TODO:
  * 
+ * - CONFIG
+ * - LOOTTABLES
  * - BOAT
  * - TRIDENT
  * - MACE
