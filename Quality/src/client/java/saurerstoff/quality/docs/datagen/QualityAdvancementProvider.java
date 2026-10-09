@@ -19,6 +19,7 @@ import net.minecraft.advancements.critereon.ItemEnchantmentsPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.ItemSubPredicates;
 import net.minecraft.advancements.critereon.MinMaxBounds;
+import net.minecraft.advancements.critereon.PlayerTrigger;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
@@ -30,6 +31,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import saurerstoff.quality.Quality;
 import saurerstoff.quality.QualityItemPredicate;
+import saurerstoff.quality.blocks.ModBlocks;
 import saurerstoff.quality.criterions.SmeltQualityCriterion;
 import saurerstoff.quality.criterions.CraftQualityCriterion;
 import saurerstoff.quality.criterions.QualityCriterions;
@@ -94,12 +96,30 @@ public class QualityAdvancementProvider extends FabricAdvancementProvider {
                 .of(Items.SPYGLASS)
                 .build();
 
+
+        AdvancementHolder qualityRoot = Advancement.Builder.advancement()
+                .display(
+                        Items.DIAMOND_PICKAXE,
+                        Component.literal("Quality"),
+                        Component.literal("Don't be satisfied by common tools and riches. It is time to experience quality."),
+                        ResourceLocation.withDefaultNamespace("textures/gui/advancements/backgrounds/adventure.png"),
+                        AdvancementType.TASK,
+                        false,
+                        false,
+                        false)
+                .addCriterion("quality",
+                        CriteriaTriggers.TICK.createCriterion(
+                                new PlayerTrigger.TriggerInstance(Optional.empty())
+                        ))
+                .save(consumer, Quality.MOD_ID + "/quality");
+
         AdvancementHolder enchantQuality = Advancement.Builder.advancement()
+                .parent(qualityRoot)
                 .display(
                         Items.ENCHANTED_BOOK,
-                        Component.literal("Quality"),
+                        Component.literal("Enchanting with Quality"),
                         Component.literal("Enchant a tool with Quality"),
-                        ResourceLocation.withDefaultNamespace("textures/gui/advancements/backgrounds/adventure.png"),
+                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -113,7 +133,7 @@ public class QualityAdvancementProvider extends FabricAdvancementProvider {
                 .save(consumer, Quality.MOD_ID + "/enchant_quality");
 
         AdvancementHolder getQualityItem = Advancement.Builder.advancement()
-                .parent(enchantQuality)
+                .parent(qualityRoot)
                 .display(
                         Items.RAW_IRON,
                         Component.literal("Make it better"),
@@ -361,6 +381,27 @@ public class QualityAdvancementProvider extends FabricAdvancementProvider {
                                         List.of(isSpyglass)))
                         )
                 .save(consumer, Quality.MOD_ID + "/craft_quality_spyglass");
+
+        AdvancementHolder getRecycler = Advancement.Builder.advancement()
+                .parent(qualityRoot)
+                .display(
+                        ModBlocks.RECYCLER.asItem(),
+                        Component.literal("Uncrafting Table"),
+                        Component.literal("Get a Recycler. It will be the key in obtaining quality items"),
+                        null,
+                        AdvancementType.TASK,
+                        true,
+                        true,
+                        false)
+                .addCriterion("get_recycler",
+                        CriteriaTriggers.INVENTORY_CHANGED.createCriterion(
+                            new InventoryChangeTrigger.TriggerInstance(
+                                Optional.empty(),
+                                InventoryChangeTrigger.TriggerInstance.Slots.ANY,
+                                List.of(ItemPredicate.Builder.item().of(ModBlocks.RECYCLER.asItem()).build())
+                            ))
+                        )
+                .save(consumer, Quality.MOD_ID + "/get_recycler");
 
         /*
                 TODO

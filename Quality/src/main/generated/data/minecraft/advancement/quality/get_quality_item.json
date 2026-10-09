@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:quality/enchant_quality",
+  "parent": "minecraft:quality/quality",
   "criteria": {
     "get_quality_item": {
       "conditions": {

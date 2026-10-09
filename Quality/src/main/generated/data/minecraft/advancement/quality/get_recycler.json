@@ -1,0 +1,29 @@
+{
+  "parent": "minecraft:quality/quality",
+  "criteria": {
+    "get_recycler": {
+      "conditions": {
+        "items": [
+          {
+            "items": "quality:recycler"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": "Get a Recycler, it will be the key in obtaining quality items",
+    "icon": {
+      "count": 1,
+      "id": "quality:recycler"
+    },
+    "title": "Uncrafting Table"
+  },
+  "requirements": [
+    [
+      "get_recycler"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,24 @@
+{
+  "criteria": {
+    "quality": {
+      "trigger": "minecraft:tick"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "minecraft:textures/gui/advancements/backgrounds/adventure.png",
+    "description": "Don't be satisfied by common tools and riches. It is time to experience quality.",
+    "icon": {
+      "count": 1,
+      "id": "minecraft:diamond_pickaxe"
+    },
+    "show_toast": false,
+    "title": "Quality"
+  },
+  "requirements": [
+    [
+      "quality"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
