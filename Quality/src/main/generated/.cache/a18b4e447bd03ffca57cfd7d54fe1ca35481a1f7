@@ -1,7 +1,9 @@
-// 1.21.1	2026-10-09T11:52:09.8864011	Quality/Advancements
+// 1.21.1	2026-10-13T12:50:12.7628673	Quality/Advancements
+a2887a2b72eaff3ffe0ee42967ed6aa11fe989a1 data\minecraft\advancement\quality\enchant_legendary_lapis.json
 db782094cbec38f268bb8e7852434888b249f154 data\minecraft\advancement\quality\smelt_quality_item.json
 2272491984078cd50d475c466d579aa4bfe6b0d3 data\minecraft\advancement\quality\craft_quality_furnace.json
-e4c9fecef0b92b700b8990093699832618255c40 data\minecraft\advancement\quality\get_recycler.json
+7a11bb43092a63514e4502dfac9570ecbcc34ba1 data\minecraft\advancement\quality\get_recycler.json
+fb490f1ea4745709cdf5454cf9ea0c9f5d53b7c0 data\minecraft\advancement\quality\enchant_quality_lapis.json
 275b3e8b5f2729bf00c784fd14db60d206942f96 data\minecraft\advancement\quality\enchant_quality.json
 81469baa3b191a0b372b163da594a889ebb102c0 data\minecraft\advancement\quality\craft_quality_armor.json
 74125ef129c3ff1e52aed523883e17eb1ecbac88 data\minecraft\advancement\quality\quality.json
@@ -10,7 +12,7 @@ e2e48f1cf6a66fc6f35659bc0b18220978c69c06 data\minecraft\advancement\quality\craf
 c9b1ebc7d19276073706da8ba82db8103df75933 data\minecraft\advancement\quality\craft_quality_pickaxe.json
 1d0641ff1b24e0dfffc497499d90922b069139d6 data\minecraft\advancement\quality\get_legendary_item.json
 e879d92556b66f3a7b31d82abc8b42cfebcefa56 data\minecraft\advancement\quality\craft_quality_sword.json
+7c1fec518c612af7206428d8fb287ea7fe554978 data\minecraft\advancement\quality\get_quality_item.json
 28145d5aeda32db2cd2baefe1c5b79cecce42091 data\minecraft\advancement\quality\fish_with_quality_rod.json
 32aeab0c1d6dc45959af15628b1f371176aad9f7 data\minecraft\advancement\quality\obtain_legendary_pickaxe.json
-7c1fec518c612af7206428d8fb287ea7fe554978 data\minecraft\advancement\quality\get_quality_item.json
 2cb5103afe8a063bd3eccb8962342c2d3bd449d8 data\minecraft\advancement\quality\smelt_legendary.json

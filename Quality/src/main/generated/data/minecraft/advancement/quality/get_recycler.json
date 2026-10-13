@@ -13,7 +13,7 @@
     }
   },
   "display": {
-    "description": "Get a Recycler, it will be the key in obtaining quality items",
+    "description": "Get a Recycler. It will be the key in obtaining quality items",
     "icon": {
       "count": 1,
       "id": "quality:recycler"

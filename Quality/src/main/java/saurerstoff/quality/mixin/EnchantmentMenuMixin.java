@@ -8,12 +8,14 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.EnchantmentMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import saurerstoff.quality.QualityUtils;
+import saurerstoff.quality.criterions.QualityCriterions;
 import saurerstoff.quality.enchantment.EnchantmentState;
 
 
@@ -47,6 +49,13 @@ public class EnchantmentMenuMixin {
     @Inject(method = "clickMenuButton", at = @At("HEAD"))
     private void clickMenuButtonStart(Player player, int id, CallbackInfoReturnable<Boolean> cir) {
         updateEnchantingQuality();
+
+        //do advancement trigger
+        ItemStack lapis = this.enchantSlots.getItem(1);
+        if (lapis.is(Items.LAPIS_LAZULI) && player instanceof ServerPlayer serverPlayer){
+            int quality = QualityUtils.getResultQuality(lapis);
+            QualityCriterions.ENCHANT_QUALITY.trigger(serverPlayer, quality);
+        }
     }
 
     @Inject(method = "clickMenuButton", at = @At("RETURN"))

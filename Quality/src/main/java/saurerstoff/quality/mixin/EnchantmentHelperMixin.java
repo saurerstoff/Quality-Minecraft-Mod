@@ -19,7 +19,6 @@ public class EnchantmentHelperMixin {
     )
     private static int applyQualityToEnchantment(int originalLevel) {
         int quality = EnchantmentState.CURRENT_QUALITY.get();
-
         return originalLevel + QualityData.LAPIS_ENCHANT_BONUS[quality];
     }
 }

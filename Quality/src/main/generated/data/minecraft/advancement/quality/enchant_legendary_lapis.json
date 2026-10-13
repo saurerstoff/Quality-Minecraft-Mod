@@ -1,0 +1,26 @@
+{
+  "parent": "minecraft:quality/enchant_quality_lapis",
+  "criteria": {
+    "enchant_legendary_lapis": {
+      "conditions": {
+        "requiredQuality": 4
+      },
+      "trigger": "quality:enchant_quality"
+    }
+  },
+  "display": {
+    "description": "Enchant using legendary lapis.",
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "minecraft:lapis_lazuli"
+    },
+    "title": "Xyzzy"
+  },
+  "requirements": [
+    [
+      "enchant_legendary_lapis"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

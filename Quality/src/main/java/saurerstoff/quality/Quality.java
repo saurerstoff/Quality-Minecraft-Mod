@@ -2,16 +2,11 @@ package saurerstoff.quality;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
 import saurerstoff.quality.blocks.ModBlockEntities;
 import saurerstoff.quality.blocks.ModBlocks;
 import saurerstoff.quality.criterions.QualityCriterions;
 import saurerstoff.quality.loot.ApplyQualityFunction;
 import saurerstoff.quality.loot.ModLootFunctions;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

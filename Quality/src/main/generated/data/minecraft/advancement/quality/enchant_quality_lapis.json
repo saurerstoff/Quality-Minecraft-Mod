@@ -1,0 +1,25 @@
+{
+  "parent": "minecraft:quality/get_quality_item",
+  "criteria": {
+    "enchant_quality_lapis": {
+      "conditions": {
+        "requiredQuality": 1
+      },
+      "trigger": "quality:enchant_quality"
+    }
+  },
+  "display": {
+    "description": "Enchant using quality lapis.",
+    "icon": {
+      "count": 1,
+      "id": "minecraft:lapis_lazuli"
+    },
+    "title": "Enchanting power"
+  },
+  "requirements": [
+    [
+      "enchant_quality_lapis"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

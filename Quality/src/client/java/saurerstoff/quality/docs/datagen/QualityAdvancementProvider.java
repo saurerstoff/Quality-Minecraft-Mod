@@ -34,6 +34,7 @@ import saurerstoff.quality.QualityItemPredicate;
 import saurerstoff.quality.blocks.ModBlocks;
 import saurerstoff.quality.criterions.SmeltQualityCriterion;
 import saurerstoff.quality.criterions.CraftQualityCriterion;
+import saurerstoff.quality.criterions.EnchantQualityCriterion;
 import saurerstoff.quality.criterions.QualityCriterions;
 import saurerstoff.quality.enchantment.QualityEnchantments;
 
@@ -403,10 +404,44 @@ public class QualityAdvancementProvider extends FabricAdvancementProvider {
                         )
                 .save(consumer, Quality.MOD_ID + "/get_recycler");
 
-        /*
-                TODO
-                - enchant with quality lapis
-                - smelt with quality fuel
-        */
+        AdvancementHolder enchantWithQualityLapis = Advancement.Builder.advancement()
+                .parent(getQualityItem)
+                .display(
+                        Items.LAPIS_LAZULI,
+                        Component.literal("Enchanting power"),
+                        Component.literal("Enchant using quality lapis."),
+                        null,
+                        AdvancementType.TASK,
+                        true,
+                        true,
+                        false)
+                .addCriterion("enchant_quality_lapis",
+                        QualityCriterions.ENCHANT_QUALITY.createCriterion(
+                            new EnchantQualityCriterion.Conditions(
+                                Optional.empty(),
+                                1
+                            ))
+                        )
+                .save(consumer, Quality.MOD_ID + "/enchant_quality_lapis");
+
+        AdvancementHolder enchantWithLegendaryLapis = Advancement.Builder.advancement()
+                .parent(enchantWithQualityLapis)
+                .display(
+                        Items.LAPIS_LAZULI,
+                        Component.literal("Xyzzy"),
+                        Component.literal("Enchant using legendary lapis."),
+                        null,
+                        AdvancementType.CHALLENGE,
+                        true,
+                        true,
+                        false)
+                .addCriterion("enchant_legendary_lapis",
+                        QualityCriterions.ENCHANT_QUALITY.createCriterion(
+                            new EnchantQualityCriterion.Conditions(
+                                Optional.empty(),
+                                4
+                            ))
+                        )
+                .save(consumer, Quality.MOD_ID + "/enchant_legendary_lapis");
     }
 }
