@@ -52,5 +52,11 @@ public class RecyclerScreen extends AbstractContainerScreen<RecyclerMenu> {
 
         // Render item tooltips
         this.renderTooltip(graphics, mouseX, mouseY);
+
+        //render quality icon
+        int qualityValue = ((IQualityDataHolder) menu).getSyncedQualityValue();
+        int x = this.leftPos + imageWidth - 16;
+        int y = this.topPos + 8;
+        QualityIconRenderer.renderQualityIcon(graphics.pose(), qualityValue, x, y, 8, 8);
     }
 }

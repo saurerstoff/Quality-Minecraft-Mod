@@ -16,10 +16,10 @@ import net.minecraft.world.inventory.RecipeBookType;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
-import saurerstoff.quality.IQualityFurnaceData;
+import saurerstoff.quality.IQualityDataHolder;
 
 @Mixin(AbstractFurnaceMenu.class)
-public abstract class AbstractFurnaceMenuMixin extends RecipeBookMenu<SingleRecipeInput, AbstractCookingRecipe> implements IQualityFurnaceData{
+public abstract class AbstractFurnaceMenuMixin extends RecipeBookMenu<SingleRecipeInput, AbstractCookingRecipe> implements IQualityDataHolder{
     
     private int syncedQualityValue;
 
@@ -51,7 +51,7 @@ public abstract class AbstractFurnaceMenuMixin extends RecipeBookMenu<SingleReci
         this.addDataSlot(new DataSlot() {
             @Override
             public int get() {
-                if (container instanceof IQualityFurnaceData qualityData){
+                if (container instanceof IQualityDataHolder qualityData){
                     return qualityData.getQualityValue();
                 }
                 return 0;

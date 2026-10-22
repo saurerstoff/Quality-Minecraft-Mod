@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import saurerstoff.quality.IQualityFurnaceData;
+import saurerstoff.quality.IQualityDataHolder;
 import saurerstoff.quality.ModComponents;
 import saurerstoff.quality.QualityData;
 import saurerstoff.quality.QualityUtils;
@@ -25,7 +25,7 @@ import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.sugar.Local;
 
 @Mixin(AbstractFurnaceBlockEntity.class)
-abstract class AbstractFurnaceBlockEntityMixin extends BaseContainerBlockEntity implements WorldlyContainer, RecipeCraftingHolder, StackedContentsCompatible, IQualityFurnaceData {
+abstract class AbstractFurnaceBlockEntityMixin extends BaseContainerBlockEntity implements WorldlyContainer, RecipeCraftingHolder, StackedContentsCompatible, IQualityDataHolder {
 
     protected AbstractFurnaceBlockEntityMixin(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState) {
         super(blockEntityType, blockPos, blockState);

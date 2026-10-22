@@ -7,14 +7,22 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import saurerstoff.quality.IQualityDataHolder;
 import saurerstoff.quality.ModMenuTypes;
 
-public class RecyclerMenu extends AbstractContainerMenu{
+public class RecyclerMenu extends AbstractContainerMenu implements IQualityDataHolder{
     private final Container container;
     private final ContainerData data;
+    private int syncedQualityValue;
+
+    @Override
+    public int getSyncedQualityValue(){
+        return this.syncedQualityValue;
+    }
 
     //Client-side constructor
     public RecyclerMenu(final int containerId, final Inventory inventory) {
@@ -54,6 +62,21 @@ public class RecyclerMenu extends AbstractContainerMenu{
 
         this.addStandardInventorySlots(inventory, 8, 92);
         this.addDataSlots(containerData);
+
+        //add data slot for quality
+        this.addDataSlot(new DataSlot() {
+            @Override
+            public int get() {
+                if (container instanceof IQualityDataHolder qualityData){
+                    return qualityData.getQualityValue();
+                }
+                return 0;
+            }
+            @Override
+            public void set(int i) {
+                syncedQualityValue = i;
+            }
+        });
     }
 
     private void addStandardInventorySlots(Inventory playerInventory, int leftX, int topY) {

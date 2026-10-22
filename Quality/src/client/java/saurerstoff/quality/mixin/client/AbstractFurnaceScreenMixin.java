@@ -11,7 +11,7 @@ import net.minecraft.client.gui.screens.inventory.AbstractFurnaceScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractFurnaceMenu;
-import saurerstoff.quality.IQualityFurnaceData;
+import saurerstoff.quality.IQualityDataHolder;
 import saurerstoff.quality.QualityIconRenderer;
 
 @Mixin(AbstractFurnaceScreen.class)
@@ -26,7 +26,7 @@ public abstract class AbstractFurnaceScreenMixin extends AbstractContainerScreen
         at = @At("TAIL"))
     private void renderCustomValue(GuiGraphics graphics, int mouseX, int mouseY, float partialTick, CallbackInfo ci) {
         // 1. Get the synced value from the menu
-        int qualityValue = ((IQualityFurnaceData) this.menu).getSyncedQualityValue();
+        int qualityValue = ((IQualityDataHolder) this.menu).getSyncedQualityValue();
 
         // 2. Define coordinates (leftPos and topPos are the top-left corner of the GUI texture)
         int x = this.leftPos + 8;

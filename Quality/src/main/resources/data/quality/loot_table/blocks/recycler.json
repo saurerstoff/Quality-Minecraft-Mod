@@ -6,7 +6,14 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "quality:recycler"
+          "name": "quality:recycler",
+          "functions": [
+            {
+              "function": "minecraft:copy_components",
+              "source": "block_entity",
+              "include": ["quality:quality"]
+            }
+          ]
         }
       ],
       "conditions": [

@@ -36,19 +36,21 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import saurerstoff.quality.IQualityDataHolder;
 import saurerstoff.quality.ModComponents;
 import saurerstoff.quality.ModSounds;
 import saurerstoff.quality.Quality;
 import saurerstoff.quality.QualityData;
 import saurerstoff.quality.QualityUtils;
 
-public class RecyclerBlockEntity extends BlockEntity implements ImplementedContainer, WorldlyContainer, MenuProvider {
+public class RecyclerBlockEntity extends BlockEntity
+        implements ImplementedContainer, WorldlyContainer, MenuProvider, IQualityDataHolder {
     public static final int CONTAINER_SIZE = 11;
     public static final int DATA_COUNT = 2;
     public static final int RECYCLE_TIME_PER_ITEM_DEFAULT = 15;
     public static final int DATA_RECYCLE_PROGRESS = 0;
     public static final int DATA_RECYCLE_TOTAL_TIME = 1;
-    int soundTime = 0; 
+    int soundTime = 0;
     int recycleProgress;
     int recycleTotalTime = RECYCLE_TIME_PER_ITEM_DEFAULT;
     public static final Map<Item, ItemStack[]> outputCache = new HashMap<>();
@@ -86,6 +88,13 @@ public class RecyclerBlockEntity extends BlockEntity implements ImplementedConta
             return 2;
         }
     };
+
+    @Override
+    public int getQualityValue() {
+        if (!this.components().has(ModComponents.QUALITY_COMPONENT))
+            return 0;
+        return this.components().get(ModComponents.QUALITY_COMPONENT);
+    }
 
     public RecyclerBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.RECYCLER_BLOCK_ENTITY, pos, state);
@@ -144,22 +153,21 @@ public class RecyclerBlockEntity extends BlockEntity implements ImplementedConta
 
     public static void tick(Level level, BlockPos blockPos, BlockState blockState, RecyclerBlockEntity entity) {
         entity.soundTime--;
-        if (canRecycle(level, entity.items)) { //check if recycling is possible
+        if (canRecycle(level, entity.items)) { // check if recycling is possible
             playRecycleSoundLoop(entity);
             updateRecycleTime(level, entity);
             entity.recycleProgress++;
 
-            if (entity.recycleProgress >= entity.recycleTotalTime) { //check if recycling is finished
+            if (entity.recycleProgress >= entity.recycleTotalTime) { // check if recycling is finished
                 recycle(level, entity.items, blockPos);
                 entity.recycleProgress = 0;
-                if(!level.isClientSide()){
+                if (!level.isClientSide()) {
                     level.playSound(
-                        null,
-                        entity.getBlockPos(),
-                        ModSounds.RECYCLER_FINISHED,
-                        SoundSource.BLOCKS,
-                        0.5f, 1f
-                    );
+                            null,
+                            entity.getBlockPos(),
+                            ModSounds.RECYCLER_FINISHED,
+                            SoundSource.BLOCKS,
+                            0.5f, 1f);
                 }
             }
         } else {
@@ -167,21 +175,21 @@ public class RecyclerBlockEntity extends BlockEntity implements ImplementedConta
         }
     }
 
-    //very simple function, that loops the recycle sound, should be replaced in the future by a better system.
-    private static void playRecycleSoundLoop(RecyclerBlockEntity entity){
-        if(!entity.getLevel().isClientSide() && entity.soundTime <= 0){
+    // very simple function, that loops the recycle sound, should be replaced in the
+    // future by a better system.
+    private static void playRecycleSoundLoop(RecyclerBlockEntity entity) {
+        if (!entity.getLevel().isClientSide() && entity.soundTime <= 0) {
             entity.soundTime = ModSounds.RECYCLER_LOOP_DURATION_TICKS;
             entity.getLevel().playSound(
-                null, 
-                entity.getBlockPos(),
-                ModSounds.RECYCLER_LOOP,
-                SoundSource.BLOCKS,
-                0.1f, 1f
-            );
+                    null,
+                    entity.getBlockPos(),
+                    ModSounds.RECYCLER_LOOP,
+                    SoundSource.BLOCKS,
+                    0.1f, 1f);
         }
     }
 
-    private static void updateRecycleTime(Level level, RecyclerBlockEntity entity){
+    private static void updateRecycleTime(Level level, RecyclerBlockEntity entity) {
         ItemStack input = entity.items.get(0);
         if (input.isEmpty())
             return;
@@ -189,12 +197,12 @@ public class RecyclerBlockEntity extends BlockEntity implements ImplementedConta
         List<ItemStack> output = getRecycleResult(level, input);
         if (output.isEmpty())
             return;
-        else{
+        else {
             entity.recycleTotalTime = getItemCountFromList(output) * RECYCLE_TIME_PER_ITEM_DEFAULT;
         }
     }
 
-    private static int getItemCountFromList(List<ItemStack> items){
+    private static int getItemCountFromList(List<ItemStack> items) {
         int amount = 0;
         for (ItemStack itemStack : items) {
             amount += itemStack.getCount();
@@ -220,7 +228,7 @@ public class RecyclerBlockEntity extends BlockEntity implements ImplementedConta
         ArrayList<ItemStack> output = new ArrayList<>();
         RandomSource random = level.getRandom();
 
-        //copy itemstack, because we don't want to alter the cached stacks
+        // copy itemstack, because we don't want to alter the cached stacks
         List<ItemStack> baseRecycleOutput = getRecycleResult(level, input);
         for (ItemStack itemStack : baseRecycleOutput) {
             output.add(itemStack.copy());
@@ -246,15 +254,15 @@ public class RecyclerBlockEntity extends BlockEntity implements ImplementedConta
             ItemStack itemstack = it.next();
             int itemCount = itemstack.getCount();
             Quality.LOGGER.info("itemstack " + itemstack.getDisplayName().getString() + ": itemcount " + itemCount);
-            for (int i = 0; i < itemCount; i++) { 
+            for (int i = 0; i < itemCount; i++) {
                 int newQuality = QualityUtils.rollQuality(itemstack, random, 3, quality);
 
                 if (newQuality > 0) {
-                    ItemStack qualityItemStack = itemstack.copyWithCount(1); 
-                    qualityItemStack.set(ModComponents.QUALITY_COMPONENT, newQuality); 
-                    addedItemStacks.add(qualityItemStack); 
-                    itemstack.shrink(1); 
-                    if (itemstack.isEmpty()){ //remove original stack if stack is empty
+                    ItemStack qualityItemStack = itemstack.copyWithCount(1);
+                    qualityItemStack.set(ModComponents.QUALITY_COMPONENT, newQuality);
+                    addedItemStacks.add(qualityItemStack);
+                    itemstack.shrink(1);
+                    if (itemstack.isEmpty()) { // remove original stack if stack is empty
                         Quality.LOGGER.info("Itemstack empty, deleting stack");
                         it.remove();
                         break;
@@ -271,7 +279,8 @@ public class RecyclerBlockEntity extends BlockEntity implements ImplementedConta
             if (outputIndex.isEmpty())
                 outputIndex = getEmptyItemStack(items);
             if (outputIndex.isEmpty()) {
-                //there is no more space in the inventory, so we will pop the resource out of the block
+                // there is no more space in the inventory, so we will pop the resource out of
+                // the block
                 Block.popResourceFromFace(level, blockPos, Direction.UP, outputItem.copy());
                 continue;
             }

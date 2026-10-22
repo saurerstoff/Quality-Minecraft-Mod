@@ -5,6 +5,7 @@ import org.jetbrains.annotations.Nullable;
 import com.mojang.serialization.MapCodec;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -35,6 +36,17 @@ public class RecyclerBlock extends BaseEntityBlock {
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new RecyclerBlockEntity(pos, state);
+    }
+
+    @Override
+    protected void onRemove(BlockState blockState, Level level, BlockPos blockPos, BlockState newBlockState, boolean isMoving) {
+        if (blockState.getBlock() != newBlockState.getBlock()
+        && !level.isClientSide
+        && level.getBlockEntity(blockPos) instanceof RecyclerBlockEntity recycler){
+            Containers.dropContents(level, blockPos, recycler);
+        }
+
+        super.onRemove(blockState, level, blockPos, newBlockState, isMoving);
     }
 
     @Override
