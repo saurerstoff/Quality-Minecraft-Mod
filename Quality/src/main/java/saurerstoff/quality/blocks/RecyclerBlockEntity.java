@@ -159,7 +159,8 @@ public class RecyclerBlockEntity extends BlockEntity
             entity.recycleProgress++;
 
             if (entity.recycleProgress >= entity.recycleTotalTime) { // check if recycling is finished
-                recycle(level, entity.items, blockPos);
+                int quality = entity.components().has(ModComponents.QUALITY_COMPONENT) ? entity.components().get(ModComponents.QUALITY_COMPONENT) : 0;
+                recycle(level, entity.items, blockPos, quality);
                 entity.recycleProgress = 0;
                 if (!level.isClientSide()) {
                     level.playSound(
@@ -222,7 +223,7 @@ public class RecyclerBlockEntity extends BlockEntity
         return true;
     }
 
-    private static void recycle(Level level, NonNullList<ItemStack> items, BlockPos blockPos) {
+    private static void recycle(Level level, NonNullList<ItemStack> items, BlockPos blockPos, int recyclerQualityLevel) {
         ItemStack input = items.get(0);
         int quality = QualityUtils.getResultQuality(input);
         ArrayList<ItemStack> output = new ArrayList<>();
@@ -239,7 +240,7 @@ public class RecyclerBlockEntity extends BlockEntity
         while (it.hasNext()) {
             ItemStack itemstack = it.next();
             for (int i = 0; i < itemstack.getCount(); i++) {
-                if (random.nextFloat() > QualityData.RECYCLE_RETURN_BASE_CHANCE) {
+                if (random.nextFloat() > QualityData.RECYCLER_RETURN_CHANCE[recyclerQualityLevel]) {
                     itemstack.shrink(1);
                     if (itemstack.isEmpty())
                         it.remove();
@@ -255,7 +256,7 @@ public class RecyclerBlockEntity extends BlockEntity
             int itemCount = itemstack.getCount();
             Quality.LOGGER.info("itemstack " + itemstack.getDisplayName().getString() + ": itemcount " + itemCount);
             for (int i = 0; i < itemCount; i++) {
-                int newQuality = QualityUtils.rollQuality(itemstack, random, 3, quality);
+                int newQuality = QualityUtils.rollQuality(itemstack, random, QualityData.RECYCLER_QUALITY_ROLL_LEVEL[recyclerQualityLevel], quality);
 
                 if (newQuality > 0) {
                     ItemStack qualityItemStack = itemstack.copyWithCount(1);

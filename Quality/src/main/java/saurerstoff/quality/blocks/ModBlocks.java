@@ -14,7 +14,10 @@ import saurerstoff.quality.Quality;
 
 public class ModBlocks {
     public static final Block RECYCLER = register(
-            new RecyclerBlock(BlockBehaviour.Properties.of().sound(SoundType.METAL)),
+            new RecyclerBlock(BlockBehaviour.Properties.of()
+                .sound(SoundType.METAL)
+                .strength(5, 5)
+                .requiresCorrectToolForDrops()),
             "recycler",
             true);
 

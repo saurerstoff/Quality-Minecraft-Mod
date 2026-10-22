@@ -25,7 +25,8 @@ public class QualityData {
     public final static Integer[] LAPIS_ENCHANT_BONUS = { 0, 3, 7, 15, 30 };
     public final static Float[] FURNACE_FUEL_BONUS = { 1.f, 1.25f, 1.6f, 2.2f, 3.0f };
     public final static Float[] SPYGLASS_ZOOM_BONUS = { 1.f, 1.4f, 2f, 3f, 5f };
-    public final static float RECYCLE_RETURN_BASE_CHANCE = 0.5f;
+    public final static Integer[] RECYCLER_QUALITY_ROLL_LEVEL = {3, 3, 4, 4, 5};
+    public final static Float[] RECYCLER_RETURN_CHANCE = {0.5f, 0.54f, 0.59f, 0.66f, 0.75f};
 
     public final static QualityRollSoundData[] QUALITY_ROLL_SOUNDS = {
             new QualityRollSoundData(SoundEvents.BAMBOO_WOOD_HIT, 0f, 1f),

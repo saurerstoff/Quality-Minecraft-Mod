@@ -1,5 +1,6 @@
 package saurerstoff.quality;
 
+import java.text.DecimalFormat;
 import java.util.function.Function;
 
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
@@ -10,6 +11,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
+import saurerstoff.quality.blocks.ModBlocks;
 
 public class QualityTooltip {
 
@@ -105,6 +107,26 @@ public class QualityTooltip {
             QualityData.SPYGLASS_ZOOM_BONUS, 
             bonus -> {
                 return "+" + (int)((bonus - 1f) * 100f) + "% Zoom";
+            }
+        );
+
+        //recycler
+        registerQualityBuffTooltip(
+            stack -> {
+                return stack.is(ModBlocks.RECYCLER.asItem()) && stack.get(ModComponents.QUALITY_COMPONENT) > 1;
+            }, 
+            QualityData.RECYCLER_QUALITY_ROLL_LEVEL, 
+            bonus -> {
+                return "+" + (bonus - QualityData.RECYCLER_QUALITY_ROLL_LEVEL[0]) + " Quality Roll Level";
+            }
+        );
+        registerQualityBuffTooltip(
+            stack -> {
+                return stack.is(ModBlocks.RECYCLER.asItem());
+            }, 
+            QualityData.RECYCLER_RETURN_CHANCE,
+            bonus -> {
+                return "+" + (int)((bonus - QualityData.RECYCLER_RETURN_CHANCE[0]) * 100f) + "% Output Chance (" + (int)(bonus * 100f) + "% total)";
             }
         );
     }
